@@ -1,38 +1,34 @@
 package org.fleen.coneflower.core;
 
+/*
+ * a field where square-based cells and polygons play in an easily rendered way, from which we get nice pictures and animations.
+ */
 public class Coneflower{
   
-  /*
-   * ################################
-   * CONSTRUCTOR
-   * ################################
-   */
+  public Coneflower(int w,int h,ConeflowerListener listener){
+    width=w;
+    height=h;
+    this.listener=listener;
+  }
   
-  public Coneflower(ConeflowerListener listener){
-    this.listener=listener;}
-  
-  /*
-   * ################################
-   * LISTENER
-   * ################################
-   */
+  public int width,height;
   
   ConeflowerListener listener;
   
-  /*
-   * ################################
-   * POLYGON TREE
-   * ################################
-   */
+  public void run(){
+    for(int i=0;i<100;i++){
+      try{
+        Thread.sleep(500);
+      }catch(Exception x){}
+      incrementTime();}}
   
-  CPolygon root;
+  public int time=0;
   
-  /*
-   * ################################
-   * CELL SYSTEM
-   * ################################
-   */
+  void incrementTime(){
+    time++;
+    listener.ticked();
+  }
   
-  public CellSystem cellsystem=new CellSystem();
+  
 
 }

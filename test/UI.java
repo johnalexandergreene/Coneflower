@@ -5,13 +5,17 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class UI extends JFrame{
   
+  public Test test;
+  public Viewer viewer;
+  
   public UI(Test test){
     this.test=test;
-    setBounds(100,100,Test.UIWIDTH,Test.UIHEIGHT);
+    viewer=new Viewer(this);
+    setBounds(100,100,Test.CWIDTH+100,Test.CHEIGHT+200);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setContentPane(new Viewer(this));
+    setContentPane(viewer);
     setVisible(true);}
   
-  Test test;
+  
   
 }
