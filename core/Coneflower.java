@@ -1,5 +1,8 @@
 package org.fleen.coneflower.core;
 
+import java.awt.Point;
+import java.util.Arrays;
+
 /*
  * a field where square-based cells and polygons play in an easily rendered way, from which we get nice pictures and animations.
  */
@@ -9,6 +12,7 @@ public class Coneflower{
     width=w;
     height=h;
     this.listener=listener;
+    initRootShape();
   }
   
   public int width,height;
@@ -28,6 +32,17 @@ public class Coneflower{
     time++;
     listener.ticked();
   }
+  
+  CShape root;
+  
+  Point[] rootpoints={
+    new Point(0,0),
+    new Point(0,height),
+    new Point(width,height),
+    new Point(width,0)};
+  
+  void initRootShape(){
+    root=new CShape(Arrays.asList(rootpoints));}
   
   
 
