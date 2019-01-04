@@ -5,8 +5,6 @@ import org.fleen.coneflower.core.ConeflowerListener;
 
 public class Test{
   
-  static final int CWIDTH=400,CHEIGHT=600;
-  
   /*
    * ################################
    * CONSTRUCTOR
@@ -14,7 +12,7 @@ public class Test{
    */
   
   Test(){
-    this.coneflower=new Coneflower(CWIDTH,CHEIGHT,new ConeflowerListener0());
+    this.coneflower=new Coneflower(new ConeflowerListener0());
     this.ui=new UI(this);
     coneflower.run();}
   
@@ -28,7 +26,7 @@ public class Test{
   
   class ConeflowerListener0 implements ConeflowerListener{
 
-    public void ticked(){
+    public void tick(){
       System.out.println("---tick---");
       System.out.println("age="+coneflower.time);
       ui.viewer.renderer.render();

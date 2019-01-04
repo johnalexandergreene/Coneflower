@@ -1,35 +1,40 @@
 package org.fleen.coneflower.core;
 
-import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.fleen.geom_2D.DPoint;
+import org.fleen.geom_2D.DPolygon;
 import org.fleen.util.tag.TagManager;
 import org.fleen.util.tag.Tagged;
 import org.fleen.util.tree.TreeNode;
 import org.fleen.util.tree.TreeNodeServices;
 
 /*
- * a closed curve composed of integer points arranged clockwise
- * describes a rectangle or whatever
+ * a forsythia grid
+ * a forsythia polygon
+ * optionally jigged to split and create 2 or more child polygons
+ * 
+ * a refinement of the forsythia polygon raft (?) in the form of cell-chains
  */
 public class CShape implements TreeNode,Tagged{
   
-  CShape(List<Point> points){
-    this.points=new ArrayList<Point>(points);
+  CShape(){
+    
   }
   
   /*
    * ################################
    * GEOMETRY
+   * TEST 2D form
    * ################################
    */
   
-  List<Point> points;
+  public DPolygon polygon=new DPolygon(new DPoint(0,1),new DPoint(0.5,0),new DPoint(-0.5,-0.1));
   
-  List<Point> getEdge(){
-    return points;}
+  public CellChain chain=new CellChain(polygon,500);
 
   /*
    * ################################

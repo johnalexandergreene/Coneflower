@@ -4,18 +4,16 @@ import java.awt.Point;
 import java.util.Arrays;
 
 /*
- * a field where square-based cells and polygons play in an easily rendered way, from which we get nice pictures and animations.
+ * a geometry generator
+ * forsythia geometry refined for boiling, foaming and whatever
+ * forsythia handles the macro structure, point-cell-chains handle the fine structure
  */
 public class Coneflower{
   
-  public Coneflower(int w,int h,ConeflowerListener listener){
-    width=w;
-    height=h;
+  public Coneflower(ConeflowerListener listener){
     this.listener=listener;
-    initRootShape();
+//    initRootShape();
   }
-  
-  public int width,height;
   
   ConeflowerListener listener;
   
@@ -30,19 +28,16 @@ public class Coneflower{
   
   void incrementTime(){
     time++;
-    listener.ticked();
+    listener.tick();
   }
   
-  CShape root;
+  /*
+   * ################################
+   * CSHAPE TREE
+   * ################################
+   */
   
-  Point[] rootpoints={
-    new Point(0,0),
-    new Point(0,height),
-    new Point(width,height),
-    new Point(width,0)};
-  
-  void initRootShape(){
-    root=new CShape(Arrays.asList(rootpoints));}
+  public CShape root=new CShape();
   
   
 

@@ -11,7 +11,7 @@ public class UI extends JFrame{
   public UI(Test test){
     this.test=test;
     viewer=new Viewer(this);
-    setBounds(100,100,Test.CWIDTH+100,Test.CHEIGHT+200);
+    setBounds(100,100,800,800);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setContentPane(viewer);
     setVisible(true);}
