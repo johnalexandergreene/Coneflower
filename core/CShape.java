@@ -1,12 +1,11 @@
 package org.fleen.coneflower.core;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
+import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.util.tag.TagManager;
 import org.fleen.util.tag.Tagged;
 import org.fleen.util.tree.TreeNode;
@@ -28,14 +27,28 @@ public class CShape implements TreeNode,Tagged{
   /*
    * ################################
    * GEOMETRY
-   * TEST 2D form
    * ################################
    */
   
-  public DPolygon polygon=new DPolygon(new DPoint(0,1),new DPoint(0.5,0),new DPoint(-0.5,-0.1));
+  public KPolygon base;
   
-  public CellChain chain=new CellChain(polygon,500);
-
+  public DPolygon elaboration;
+  
+  /*
+   * ################################
+   * CHORUS INDEX AND 
+   * Chorus index is minimal id for this shape's role among its siblings
+   * Compiled from this to root (up the tree) gives us a symmetry-consistent signature for this shape. 
+   *   A unique id for its context-pattern.
+   * ################################
+   */
+  
+  int chorusindex;
+  
+  CShapeSignature getSignature(){
+    
+  }
+  
   /*
    * ################################
    * CHILD ACCESS

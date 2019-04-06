@@ -28,6 +28,7 @@ public class Coneflower{
   
   void incrementTime(){
     time++;
+    process();
     listener.tick();
   }
   
@@ -38,6 +39,10 @@ public class Coneflower{
    */
   
   public CShape root=new CShape();
+  
+  private void process(){
+    
+  }
   
   
 

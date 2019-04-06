@@ -54,20 +54,28 @@ public class Renderer{
     Graphics2D g=image.createGraphics();
     g.setPaint(BACKGROUNDCOLOR);
     g.fillRect(0,0,(int)imagewidth,(int)imageheight);
-    AffineTransform t=new AffineTransform();
-    t.translate(imageoffsetx,imageoffsety);
-    t.scale(SCALE,SCALE);
-    g.setTransform(t);
+
+    //chain transform
+    AffineTransform tchain=new AffineTransform();
+    tchain.translate(imageoffsetx,imageoffsety);
+    //chain
+    g.setTransform(tchain);
+    g.setPaint(new Color(0,255,0,64));
+    Rectangle2D.Double square;
+    System.out.println("chain:"+viewer.ui.test.coneflower.root.chain.size());
+    for(CCell c:viewer.ui.test.coneflower.root.chain){
+      square=new Rectangle2D.Double(c.x-3,c.y-3,6,6);
+      g.fill(square);}
+    
+    //polygon transform
+    AffineTransform tpolygon=new AffineTransform();
+    tpolygon.translate(imageoffsetx,imageoffsety);
+    tpolygon.scale(SCALE,SCALE);
     //polygon
+    g.setTransform(tpolygon);
     g.setPaint(new Color(255,0,0,128));
     g.setStroke(new BasicStroke((float)(2.0/SCALE)));
     g.draw(p.getPath2D());
-    //chain
-    g.setPaint(new Color(0,255,0,128));
-    Rectangle2D.Double square;
-    for(CCell c:viewer.ui.test.coneflower.root.chain){
-      square=new Rectangle2D.Double(c.x-1/SCALE,c.y-1/SCALE,2/SCALE,2/SCALE);
-      g.fill(square);}
     
   }
 
