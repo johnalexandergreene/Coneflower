@@ -1,4 +1,4 @@
-package org.fleen.coneflower.zCellSystem.test0;
+package org.fleen.coneflower.hCellSystem.test.test005_ForsythiaThing;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -19,10 +19,10 @@ public class Viewer extends JPanel{
   
   public void paint(Graphics g){
     super.paint(g);
-    if(ui==null||ui.test==null||ui.test.getImage()==null)return;
+    if(ui==null||ui.test==null||ui.test.image==null)return;
     Graphics2D g2=(Graphics2D)g;
-    AffineTransform t=getCenterTransform(ui.test.getImage());
-    g2.drawImage(ui.test.getImage(),t,null);}
+    AffineTransform t=getCenterTransform(ui.test.image);
+    g2.drawImage(ui.test.image,t,null);}
   
   public int getPaddedWidth(){
     return getWidth()-(2*PADDING);}

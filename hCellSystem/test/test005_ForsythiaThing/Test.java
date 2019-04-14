@@ -1,4 +1,4 @@
-package org.fleen.coneflower.zCellSystem.test0;
+package org.fleen.coneflower.hCellSystem.test.test005_ForsythiaThing;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.fleen.coneflower.zCellSystem.ZCSMT_FCompositionMargin;
-import org.fleen.coneflower.zCellSystem.ZCSMT_FPolygonArea;
-import org.fleen.coneflower.zCellSystem.ZCSMT_FPolygonBoiledEdge;
-import org.fleen.coneflower.zCellSystem.ZCSMappedThing;
-import org.fleen.coneflower.zCellSystem.ZCellSystem;
+import org.fleen.coneflower.hCellSystem.HCSMappedThing;
+import org.fleen.coneflower.hCellSystem.HCellSystem;
+import org.fleen.coneflower.hCellSystem.R_FattenBoiledEdge;
+import org.fleen.coneflower.hCellSystem.R_Smooth;
+import org.fleen.coneflower.hCellSystem.Rule;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 
-public class ZCellTest000 implements ZCellTest{
+public class Test{
 
   /*
    * ################################
@@ -23,13 +23,45 @@ public class ZCellTest000 implements ZCellTest{
    * ################################
    */
   
-  ZCellTest000(){
+  /*
+   *
+   * 
+create composition
+
+create list of mapped things 
+  (in order of mapping I guess, for example the boiled edges should be mapped after the polygon areas)
+  margin
+  leaf polygons
+  polygons with edges to be boiled
+  
+create cellsystem : cellsystem0
+  new CellSystem(w,h,mappedthings)
+  
+(maybe clean it. are there dead cells? if so then do something about them)
+   
+create second, empty cellsystem of same size but nothing mapped : cellsystem1
+  cellsystem1=cellsystem0.getBlankCopy();
+  
+create rulesystem
+  new RuleSystem() : rulesystem 
+
+boolean flipflop=true
+while(notdone){
+  if(flipflip){
+    rulesystem.doRules(cellsystem0,cellsystem1)
+    render(cellsystem1)
+  }else{
+    rulesystem.doRules(cellsystem1,cellsystem0)
+    render(cellsystem0)}
+  flipflop=!flipflop;
+   */
+  
+  Test(){
     initUI();
     initRenderer();
     //
     initComposition();
     initCompositionCellSystemTransform();
-//    initMappedThingsListForSimpleTest();
     initMappedThingsList();
     //
     initCellSystem0();
@@ -42,21 +74,15 @@ public class ZCellTest000 implements ZCellTest{
    */
   
   public void run(){
-    System.out.println("RUN");
     render(cellsystem0);
     doRule0(1);
-    doRule2(1);
-    doRule0(1);
-    doRule2(1);
-    doRule0(1);
-    doRule2(1);
-    doRule1(1);
-    doRule0(1);
-    doRule1(1);
-    doRule0(1);
-    doRule1(1);
-    doRule0(1);
-    doRule1(1);
+//    doRule1(1);
+//    doRule0(1);
+//    doRule1(1);
+//    doRule0(1);
+//    doRule1(1);
+//    doRule0(1);
+//    doRule1(1);
     
     
   }
@@ -66,7 +92,11 @@ public class ZCellTest000 implements ZCellTest{
   private void doRule0(int t){
     Rule rule=new R_FattenBoiledEdge();
     for(int i=0;i<t;i++){
-      System.out.println("fatten boiled edge "+i+" / "+t);
+      //
+      try{
+        Thread.sleep(500);
+      }catch(Exception x){}
+      //
       if(flipflop){
         rule.doRule(cellsystem0,cellsystem1);
         render(cellsystem1);
@@ -78,18 +108,11 @@ public class ZCellTest000 implements ZCellTest{
   private void doRule1(int t){
     Rule rule=new R_Smooth();
     for(int i=0;i<t;i++){
-      if(flipflop){
-        rule.doRule(cellsystem0,cellsystem1);
-        render(cellsystem1);
-      }else{
-        rule.doRule(cellsystem1,cellsystem0);
-        render(cellsystem0);}
-      flipflop=!flipflop;}}
-  
-  private void doRule2(int t){
-    Rule rule=new R_Blur();
-    for(int i=0;i<t;i++){
-      System.out.println("blur "+i+" / "+t);
+      //
+      try{
+        Thread.sleep(500);
+      }catch(Exception x){}
+      //
       if(flipflop){
         rule.doRule(cellsystem0,cellsystem1);
         render(cellsystem1);
@@ -109,9 +132,6 @@ public class ZCellTest000 implements ZCellTest{
   private void initUI(){
     ui=new UI(this);}
   
-  public UI getUI(){
-    return ui;}
-  
   /*
    * ################################
    * COMPOSITION
@@ -121,21 +141,20 @@ public class ZCellTest000 implements ZCellTest{
   ForsythiaComposition composition;
   
   private void initComposition(){
-//    composition=new TestComposition001();
-    composition=new TestComposition000();
-    
-  }
+//    composition=new TestComposition000();
+    composition=new FComposition001();
+    }
   
   /*
    * ################################
    * COMPOSITION CELLSYSTEM TRANSFORM
    * scale up the composition because, dimensionally, it's pretty small
-   * translate it to put the left and top edges at 0, + margin
+   * translate it to put the left and top edges at 0, + margin 
    * ################################
    */
   
-  int margin=8;
-  double scale=222;
+  int margin=16;
+  double scale=99;
   AffineTransform compositioncellsystemtransform;
   
   private void initCompositionCellSystemTransform(){
@@ -150,54 +169,35 @@ public class ZCellTest000 implements ZCellTest{
   
   /*
    * ################################
-   * MAPPED THINGS
+   * MAPPED THINGS LIST
    * ################################
    */
   
-  //this is a nice glowspan, makes for nice transitions
-  //we use this value for all mappings in the test
-  //we could, of course, use different glowspans for all the mappings if we so chose.
-  static final double GLOWSPAN=1.5;
-//  static final double GLOWSPAN=3.5;//TEST
-  
-  List<ZCSMappedThing> mappedthings;
-  
-  
-//  private void initMappedThingsListForSimpleTest(){
-//    mappedthings=new ArrayList<ZCSMappedThing>();
-//    ZCSMappedThing leaf;
-//    for(FPolygon p:composition.getLeafPolygons()){
-//      if(p.hasTags("hex")){
-//        leaf=new ZCSMappedThing(p,compositioncellsystemtransform,GLOWSPAN,new String[]{"leaf"});
-//        mappedthings.add(leaf);}}
-//  }
+  List<HCSMappedThing> mappedthings;
   
   private void initMappedThingsList(){
-    mappedthings=new ArrayList<ZCSMappedThing>();
-    //ADD MARGIN
-    ZCSMT_FCompositionMargin margin=
-      new ZCSMT_FCompositionMargin(getCellSystemWidth(),getCellSystemHeight(),composition.getRootPolygon(),
-      compositioncellsystemtransform,GLOWSPAN,new String[]{"margin"});
+    mappedthings=new ArrayList<HCSMappedThing>();
+    //
+    HCSMappedThing margin=new HCSMappedThing(composition.getRootPolygon(),compositioncellsystemtransform,new String[]{"margin"});
     mappedthings.add(margin);
-    //ADD FORSYTHIA COMPOSITION LEAVES
-    ZCSMT_FPolygonArea leaf;
+    //
+    HCSMappedThing leaf;
     for(FPolygon p:composition.getLeafPolygons()){
-      leaf=new ZCSMT_FPolygonArea(p,compositioncellsystemtransform,GLOWSPAN,new String[]{"leaf"});
+      leaf=new HCSMappedThing(p,compositioncellsystemtransform,new String[]{"leaf"});
       mappedthings.add(leaf);}
-    //ADD FORSYTHIA COMPOSITON BOILED POLYGON EDGES
-    mappedthings.addAll(getBoiledPolygonEdgeThings());
-    }
+    //
+    mappedthings.addAll(getBoiledPolygonEdgeThings());}
   
   /*
    * TODO
    * a nice symmetricrandom type selection
    */
-  private List<ZCSMT_FPolygonBoiledEdge> getBoiledPolygonEdgeThings(){
+  private List<HCSMappedThing> getBoiledPolygonEdgeThings(){
     Random r=new Random();
-    List<ZCSMT_FPolygonBoiledEdge> a=new ArrayList<ZCSMT_FPolygonBoiledEdge>();
+    List<HCSMappedThing> a=new ArrayList<HCSMappedThing>();
     for(FPolygon p:composition.getPolygons())
       if(r.nextDouble()>0.95)
-        a.add(new ZCSMT_FPolygonBoiledEdge(p,compositioncellsystemtransform,GLOWSPAN));
+        a.add(new HCSMappedThing(p,compositioncellsystemtransform,new String[]{"boiled"}));
     return a;}
   
   /*
@@ -206,42 +206,37 @@ public class ZCellTest000 implements ZCellTest{
    * ################################
    */
   
-  ZCellSystem 
-    cellsystem0,
-    cellsystem1;
- 
-  public int getCellSystemWidth(){
+  HCellSystem cellsystem0,cellsystem1;
+  
+  int getCellSystemWidth(){
     Rectangle2D.Double bounds=composition.getRootPolygon().getDPolygon().getBounds();
     return (int)(bounds.width*scale+margin+margin);}
   
-  public int getCellSystemHeight(){
+  int getCellSystemHeight(){
     Rectangle2D.Double bounds=composition.getRootPolygon().getDPolygon().getBounds();
     return (int)(bounds.height*scale+margin+margin);}
   
   void initCellSystem0(){
-    cellsystem0=new ZCellSystem(getCellSystemWidth(),getCellSystemHeight(),mappedthings);}
+    cellsystem0=new HCellSystem(getCellSystemWidth(),getCellSystemHeight(),mappedthings);}
   
   void initCellSystem1(){
-    cellsystem1=new ZCellSystem(getCellSystemWidth(),getCellSystemHeight());}
-
+    cellsystem1=new HCellSystem(getCellSystemWidth(),getCellSystemHeight());}
+  
   /*
    * ################################
    * IMAGE
    * ################################
    */
   
-  ZCellTestRenderer renderer;
+  Renderer renderer;
   BufferedImage image=null;
   
   private void initRenderer(){
-    renderer=new ZCellTestRenderer(this);}
+    renderer=new Renderer(this);}
   
-  private void render(ZCellSystem zcs){
-    image=renderer.render(zcs);
+  private void render(HCellSystem cs){
+    renderer.render(cs);
     ui.repaint();}
-  
-  public BufferedImage getImage(){
-    return image;}
   
   /*
    * ################################
@@ -250,7 +245,7 @@ public class ZCellTest000 implements ZCellTest{
    */
   
   public static final void main(String[] a){
-    ZCellTest000 t=new ZCellTest000();
+    Test t=new Test();
     t.run();}
   
 }

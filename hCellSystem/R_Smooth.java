@@ -1,4 +1,4 @@
-package org.fleen.coneflower.zCellSystem.test0;
+package org.fleen.coneflower.hCellSystem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,10 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 /*
- * get census
- * get majority presence in cell
- * weight census by that majority presence
- * or something
+ * A NEW CURVE SMOOTHING ALG
+ * take the array
+ * convert to float array
+ * do blur
+ *   ie : average of neighbors, 2 or 3 times
+ * then convert back to cells
+ * yes????
+ * 
+ * 
+ * 
  */
 public class R_Smooth implements Rule{
   
@@ -30,22 +36,9 @@ public class R_Smooth implements Rule{
 //    {-1,-1},{0,-1},{1,-1}};
   
   /*
-   * 
-   * given c0
-   * 
-   * first duplicate
-   * 
-   * then, get the c0 presences
-   * if there is a presence that is>0.5
-   *   get the average of all local matching presences, including c0's matching presence, weighted up a bit (1.1 or something) : k
-   * set the presence to intensity k;
-   * 
-   * maybe only adjust the weighted presence intensity if the result is > than the present intensity
-   *   
-   *    
-   * 
-   * 
-   * 
+   * get c0 neighbors out to viewrange
+   * get sum for each thing
+   * set c1 cell to thing with greatest sum 
    */
   public void doRule(HCellSystem cs0,HCellSystem cs1){
     HCell c1;

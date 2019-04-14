@@ -1,12 +1,16 @@
-package org.fleen.coneflower.zCellSystem;
+package org.fleen.coneflower.hCellSystem;
 
 import java.awt.geom.AffineTransform;
 import java.util.List;
 
-import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.util.tag.TagManager;
+import org.fleen.util.tag.Tagged;
 
-public class ZCSMT_FPolygonBoiledEdge implements ZCSMappedThing{
+/*
+ * a thing that is mapped to a cellsystem
+ * the thing and some associated tags
+ */
+public class HCSMappedThing implements Tagged{
 
   /*
    * ################################
@@ -14,42 +18,41 @@ public class ZCSMT_FPolygonBoiledEdge implements ZCSMappedThing{
    * ################################
    */
   
-  public ZCSMT_FPolygonBoiledEdge(FPolygon fpolygon,AffineTransform fpolygontransform,double glowspan){
-    this.fpolygon=fpolygon;
-    this.fpolygontransform=fpolygontransform;
-    this.glowspan=glowspan;}
+  public HCSMappedThing(){}
   
-  public ZCSMT_FPolygonBoiledEdge(FPolygon fpolygon,AffineTransform fpolygontransform,double glowspan,String[] tags){
-    this(fpolygon,fpolygontransform,glowspan);
+  public HCSMappedThing(Object thing){
+    this.thing=thing;}
+  
+  public HCSMappedThing(Object thing,AffineTransform transform,String[] tags){
+    this(thing);
+    this.transform=transform;
     tagmanager.addTags(tags);}
   
   /*
    * ################################
-   * FPOLYGON THE EDGE OF WHICH WE ARE MAPPING
+   * THING
+   * The thing that got mapped
    * ################################
    */
   
-  public FPolygon fpolygon;
+  public Object thing;
   
   /*
    * ################################
    * TRANSFORM
+   * Mapped things often need transforms
    * ################################
    */
   
-  public AffineTransform fpolygontransform;
+  public AffineTransform transform;
   
   /*
    * ################################
-   * GLOWSPAN
-   * Mapped things often have a presence that spreads a bit from their actual location
+   * GENERAL PURPOSE OBJECT
    * ################################
    */
   
-  double glowspan;
-  
-  public double getGlowSpan(){
-    return glowspan;}
+  public Object gpobject;
   
   /*
    * ################################
@@ -85,5 +88,14 @@ public class ZCSMT_FPolygonBoiledEdge implements ZCSMappedThing{
   
   public void removeTags(List<String> tags){
     tagmanager.removeTags(tags);}
+
+  public boolean hasTag(String tag){
+    return tagmanager.hasTag(tag);}
+
+  public void addTag(String tag){
+    tagmanager.addTags(tag);}
+
+  public void removeTag(String tag){
+    tagmanager.removeTags(tag);}
   
 }

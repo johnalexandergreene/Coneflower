@@ -1,36 +1,30 @@
-package org.fleen.coneflower.zCellSystem.test0;
+package org.fleen.coneflower.hCellSystem.test.test005_ForsythiaThing;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
-import org.fleen.forsythia.app.compositionGenerator.composer.Composer001_SplitBoil;
-import org.fleen.forsythia.app.compositionGenerator.composer.ForsythiaCompositionGen;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.core.grammar.FJig;
 
 @SuppressWarnings("serial")
-public class TestComposition001 extends ForsythiaComposition{
+public class FComposition000 extends ForsythiaComposition{
   
-  static final String GRAMMARPATH="/home/john/Desktop/grammars/s008.grammar";
+  static final String GRAMMARPATH="/home/john/Desktop/grammars/rdtest.grammar";
   
-  static final double DETAILLIMIT=0.2;
-  
-  public TestComposition001(){
+  public FComposition000(){
     super();
     initGrammar();
-    FMetagon r=getRootMetagon();
-    initTree(r);
-    ForsythiaCompositionGen composer=new Composer001_SplitBoil();
-    composer.compose(this,DETAILLIMIT);}
+    FMetagon rm=gleanRootMetagon(grammar);
+    initTree(rm);
+    FJig j=grammar.getRandomJig(rm,null,100);
+    j.createNodes(getRootPolygon());}
   
-  private FMetagon getRootMetagon(){
-    for(FMetagon m:grammar.getMetagons())
-      if(m.hasTags("root"))
-        return m;
-    throw new IllegalArgumentException("root metagon not found");}
+  private FMetagon gleanRootMetagon(ForsythiaGrammar grammar){
+    FMetagon m=grammar.getRandomMetagon(new String[]{"root"});
+    return m;}
   
   private void initGrammar(){
     File file=new File(GRAMMARPATH);
