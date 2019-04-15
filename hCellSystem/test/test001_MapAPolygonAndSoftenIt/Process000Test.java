@@ -1,13 +1,13 @@
 package org.fleen.coneflower.hCellSystem.test.test001_MapAPolygonAndSoftenIt;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.fleen.coneflower.hCellSystem.HCSMappedThing;
 import org.fleen.coneflower.hCellSystem.HCell;
+import org.fleen.coneflower.hCellSystem.HCellLocality;
 import org.fleen.coneflower.hCellSystem.HCellSystem;
 
 /*
@@ -43,7 +43,9 @@ public class Process000Test{
     List<HCell> n=new ArrayList<HCell>();
     n.add(c);
 //    for(HCell a:cs.getNeighbors(c))
-    for(HCell a:cs.getR2Neighbors(c))
+    HCellLocality l0=new HCellLocality(c,cs,2);
+//    for(HCell a:cs.getR2Neighbors(c))
+    for(HCell a:l0.neighbors)
       if(a!=null)
         n.add(a);
     //count things

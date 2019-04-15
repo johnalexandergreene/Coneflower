@@ -61,5 +61,9 @@ public class HCell{
   public boolean equals(Object a){
     HCell b=(HCell)a;
     return b.x==x&&b.y==y;}
+  
+  public String toString(){
+    String a="Cell["+x+","+y+"]";
+    return a;}
 
 }

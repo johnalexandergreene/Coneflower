@@ -1,5 +1,6 @@
 package org.fleen.coneflower.hCellSystem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,8 +34,7 @@ public class HCellSystem implements HCellMass{
   
   public HCellSystem(int w,int h,List<HCSMappedThing> mappedthings){
     this(w,h);
-    mapTheThings(mappedthings);
-    clean();}
+    mapTheThings(mappedthings);}
   
   /*
    * ################################
@@ -168,66 +168,5 @@ public class HCellSystem implements HCellMass{
         b=cells[a.x][a.y];
         b.thing=t;}
     return c;}
-  
-  /*
-   * ################################
-   * CELL POLLING
-   * Given a cell
-   * Get it's neighbors. That is, get it's immediate neighbors. Then their neighbors, and so on. Out to an arbitrary number of layers.
-   * Then we might count them, see which cells have which things, stuff like that
-   * This is fast. We cache the offsets for each radius
-   * we return nulls too, like when a cell is near the cellsystem edge. So keep that in mind.
-   * ################################
-   */
-  
-  public HCell[] getNeighbors(HCell c,int radius){
-    int[][] offsets=getOffsets(radius);
-    HCell[] neighbors=new HCell[offsets.length];
-    for(int i=0;i<offsets.length;i++){
-      neighbors[i]=getCell(c.x+offsets[i][0],c.y+offsets[i][1]);}
-    return neighbors;}
-    
-  Map<Integer,int[][]> offsetsbyradius=new HashMap<Integer,int[][]>();
-  
-  private int[][] getOffsets(int radius){
-    int[][] offsets=offsetsbyradius.get(radius);
-    if(offsets!=null){
-      return offsets;
-    }else{
-      offsets=createOffsets(radius);
-      offsetsbyradius.put(radius,offsets);}
-    return offsets;}
-  
-  private int[][] createOffsets(int radius){
-    Set<OffsetVector> 
-      vectors=new HashSet<OffsetVector>(),
-      newvectors=new HashSet<OffsetVector>();
-    vectors.add(new OffsetVector(0,0));
-    for(int i=0;i<radius;i++){
-      for(OffsetVector v:vectors){
-        newvectors.add(new OffsetVector(v.dx,v.dy-1));
-        newvectors.add(new OffsetVector(v.dx,v.dy-1));
-        newvectors.add(new OffsetVector(v.dx,v.dy-1));
-        newvectors.add(new OffsetVector(v.dx,v.dy-1));
-        newvectors.add(new OffsetVector(v.dx,v.dy-1));
-        newvectors.add(new OffsetVector(v.dx,v.dy-1));
-        newvectors.add(new OffsetVector(v.dx,v.dy-1));
-        newvectors.add(new OffsetVector(v.dx,v.dy-1));
-      }
-    }
-      
-    
-  }
-  
-  class OffsetVector{
-    OffsetVector(int dx,int dy){
-      this.dx=dx;
-      this.dy=dy;}
-    int dx,dy;
-    public boolean equals(Object a){
-      OffsetVector b=(OffsetVector)a;
-      return b.dx==dx&&b.dy==dy;}
-    
-    }
     
 }
