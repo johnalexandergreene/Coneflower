@@ -30,12 +30,15 @@ public class HCellLocality{
     psystem=system;
     pradius=radius;
     initNeighbors();
-    System.out.println("LOCALITY");
-    System.out.println("the cell : "+pcell);
-    System.out.println("neighbors");
-    System.out.println("count="+neighbors.length);
-    for(HCell c:neighbors)
-      System.out.println(c);}
+    
+//    System.out.println("LOCALITY");
+//    System.out.println("the cell : "+pcell);
+//    System.out.println("neighbors");
+//    System.out.println("count="+neighbors.length);
+//    for(HCell c:neighbors)
+//      System.out.println(c);
+    
+  }
   
   /*
    * ################################
@@ -159,6 +162,9 @@ public class HCellLocality{
     public boolean equals(Object a){
       OffsetVector b=(OffsetVector)a;
       return b.dx==dx&&b.dy==dy;}
+    
+    public int hashCode(){
+      return dx+dy*7919;}
     
     public String toString(){
       return "ov["+dx+","+dy+"]";}}

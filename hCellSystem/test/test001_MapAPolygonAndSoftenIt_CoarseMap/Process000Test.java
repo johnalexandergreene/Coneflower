@@ -1,4 +1,4 @@
-package org.fleen.coneflower.hCellSystem.test.test001_MapAPolygonAndSoftenIt;
+package org.fleen.coneflower.hCellSystem.test.test001_MapAPolygonAndSoftenIt_CoarseMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +14,8 @@ import org.fleen.coneflower.hCellSystem.HCellSystem;
  * process an hcellsystem 
  */
 public class Process000Test{
+  
+  static final int SURVEYRADIUS=4;
   
   public HCellSystem process(HCellSystem cs){
     int 
@@ -42,9 +44,7 @@ public class Process000Test{
     //get cells
     List<HCell> n=new ArrayList<HCell>();
     n.add(c);
-//    for(HCell a:cs.getNeighbors(c))
-    HCellLocality l0=new HCellLocality(c,cs,2);
-//    for(HCell a:cs.getR2Neighbors(c))
+    HCellLocality l0=new HCellLocality(c,cs,SURVEYRADIUS);
     for(HCell a:l0.neighbors)
       if(a!=null)
         n.add(a);

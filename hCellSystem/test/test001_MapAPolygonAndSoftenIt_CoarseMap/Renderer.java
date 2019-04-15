@@ -1,4 +1,4 @@
-package org.fleen.coneflower.hCellSystem.test.test001_MapAPolygonAndSoftenIt;
+package org.fleen.coneflower.hCellSystem.test.test001_MapAPolygonAndSoftenIt_CoarseMap;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

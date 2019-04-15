@@ -1,4 +1,4 @@
-package org.fleen.coneflower.hCellSystem.test.test001_MapAPolygonAndSoftenIt;
+package org.fleen.coneflower.hCellSystem.test.test002_MapAPolygonAndSoftenIt_FineMap;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
@@ -75,8 +75,8 @@ public class Test{
    */
   
   double 
-    margin=8,
-    scale=14;
+    margin=16,
+    scale=200;
   AffineTransform polygontransform;
   
   private void initPolygonTransform(){
@@ -133,9 +133,9 @@ public class Test{
     render();
     for(int i=0;i<22;i++){
       System.out.println("process "+i);
-      try{
-        Thread.sleep(1000);
-      }catch(Exception x){}
+//      try{
+//        Thread.sleep(1000);
+//      }catch(Exception x){}
       cellsystem=process.process(cellsystem);
       render();}}
   

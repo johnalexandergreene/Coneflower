@@ -1,4 +1,4 @@
-package org.fleen.coneflower.hCellSystem.test.test001_MapAPolygonAndSoftenIt;
+package org.fleen.coneflower.hCellSystem.test.test002_MapAPolygonAndSoftenIt_FineMap;
 
 import javax.swing.JFrame;
 
