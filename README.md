@@ -1,42 +1,29 @@
-This is a geometry generation system
+###################
+CONEFLOWER
+###################
 
-It uses Forsythia for its macro structure 
-(arrangement and orientation of polygons)
+General 2D geometry generation system
 
-It uses a square cellular automation for its micro struture 
-(elaborations like boiling and foaming. curve smoothing. nice spacing in various little geometry vignettes) 
-  Our cells are points.
-  We use 2 ordered lists
-    list1: cells ordered by x coor
-    list2: cells ordered by y coor
+Create geometry from polygons and yards
 
+(A Yard is a 2D area defined by one outer edge and n inner edges, holes)
+
+Use progressive differentiation process. IE given a polygon, split it into some polygons, then split those polygons into polygons, and so on. 
 
 ---
 
-given 
-  a forsythia grammar
-  a field of integer cells, like for a cellular automaton
-  EXCEPT our cells represent points, not squares. 
-    We use those points to create chains of points, thus the edges of polygons and such.
+There will be multiple geometry-manipulating subsystems. IE splitting, boiling, crushing, etc (see below)
 
-cast polygons and related structures upon cellfield
-expand, contract, smooth, etc via cell ops
+There will be processes for deriving one kind of geometry from another : IE curve smoothing, curve elaboration (see below)
 
-We will build compositions like this
+We are building a tree of shapes. Each shape contained within its parent. All shapes contained within the root.  
 
-  create root polygon
-  (optionally) split it
-  cast edges to cellfield
-   adjust edges. Smooth or whatever
-  Create new polygons inside of root polygons. Just shrink and center. 
-    Doesn't have to be too precise or perfect.
-  Split em or whatever
-  cast to cellfield
-  shrink, grow, smooth, etc so they fit nicely.
-  repeat until satisfied
+A shape is a polygon or yard. 
 
+A shape has a basic geometry made of simple polygon/s and an elaborate geometry derived from that basic geometry. 
 
-The deal here is that the forsythia polygons are abstractions of the cellfield forms. 
-It's the cellforms that ultimately matter.
-Use a high-rez cellfield
-  speed is crucial in our get and set cell methods so we might just go with a big array
+The elaborate geometry will be a simple transformation of the basic. Many points will have direct correspondence. 
+Doing it this way will give us a wealth of useful info for child geometry production (jigging)  
+
+---
+
